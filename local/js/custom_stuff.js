@@ -1,23 +1,32 @@
 var CustomStuff = BX.namespace('CustomStuff');
 
+CustomStuff.taskExtend = function(){
 
-CustomStuff.taskExtend = function() {
-    var panelWidget = BX.findChildByClassName(document, 'task-view-buttonset',true);
-    var panelCategoryWidget = BX.findChildByClassName(panelWidget, 'edit', true);
-    console.log(panelCategoryWidget)
-    var thankButton = BX.create('a', {
-        attrs : {
-            className : 'user-profile-events-item',
-            href : 'javascript:void(0);'
-        },
-        html : '<i></i> ' + BX.message('CUSTOM_STUFF_CLONE_BUTTON_TITLE')
+    //код исполняем, только когда DOM загружен
+    BX.ready(function(){
+        BX.addCustomEvent('onPopupFirstShow', function(p) {
+            var menuId = 'task-view-b';
+            if (p.uniquePopupId === 'menu-popup-' + menuId)
+            {
+                var menu = BX.PopupMenu.getMenuById(menuId)
+
+                //добавляем пункт меню, полученному по id
+                    menu.addMenuItem({
+                    text: BX.message('CUSTOM_STUFF_CLONE_BUTTON_TITLE'),
+                    href: 'javascript:CustomStuff.makeSubTask();',
+                    className: 'menu-popup-item-copy'
+                });
+            }
+        });
     });
 
-    BX.bind(thankButton, 'click', CustomStuff.showThankPopup);
-    panelCategoryWidget.appendChild(thankButton);
-};
 
-CustomStuff.showThankPopup = function() {
+
+}
+
+
+
+CustomStuff.makeSubTask = function() {
 
 //отправляю POST запрос и получаю ответ
 
