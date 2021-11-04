@@ -36,4 +36,10 @@ CJSCore::Init('custom_stuff');
 
 $asset = Asset::getInstance();
 
-//$asset->addString('<script>BX.ready(function() {BX.CustomStuff.myfunc();}); </script>');
+
+$request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
+$uri = new \Bitrix\Main\Web\Uri($request->getRequestUri());
+
+if (preg_match('|tasks/task/view/[/\d{1,}/g]|',$uri)) {
+    $asset->addString('<script>BX.ready(function() {BX.CustomStuff.taskExtend();}); </script>');
+}
