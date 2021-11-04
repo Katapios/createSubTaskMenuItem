@@ -27,7 +27,7 @@ CustomStuff.showThankPopup = function() {
     var id = trimUrl.substring(trimUrl.lastIndexOf('/') + 1);
 
     BX.ajax.loadJSON (//Выполняем POST запрос
-        '/crm/deal/test/taskExtends.php',
+        '/local/php_interface/ajax-files/taskExtends.php',
         {
             sessid : BX.bitrix_sessid(),
             id:id,
